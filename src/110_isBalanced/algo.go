@@ -20,7 +20,7 @@ func GetDepth(root *TreeNode)(int,bool){
 	depth_right, balanced_right :=  GetDepth(root.Right)
 
 	fmt.Printf("value=%d,depth_left=%d,balanced_left=%t,depth_right=%d,balanced_right=%t\n",root.Val,depth_left,balanced_left,depth_right,balanced_right)
-	if balanced_left == false || balanced_right == false{
+	if !balanced_lef|| !balanced_right{
 		return -1,false
 	} else if Abs(depth_left-depth_right) >=2 {
 		return -1,false
@@ -33,8 +33,7 @@ func GetDepth(root *TreeNode)(int,bool){
 	}
 }
 
-
 func isBalanced(root *TreeNode) bool {
-	_, balanced := GetDepth(root)
-	return balanced
+	_, ok := GetDepth(root)
+	return ok
 }
