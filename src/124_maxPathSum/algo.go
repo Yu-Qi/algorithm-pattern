@@ -1,29 +1,30 @@
 package algo
 
 import (
-	"fmt"
+	// "fmt"
 	. "../Tree"
 )
-
-func maxPathSum(root *TreeNode) int {
+func max(a int, b int)int{
+	if a>=b{
+		return a
+	} else{
+		return b
+	}
+}
+func helper(root *TreeNode, res* int)int{
 	if root == nil{
 		return -2000
 	}
-	sum_left := maxPathSum(root.Left)
-	sum_right := maxPathSum(root.Right)
-	fmt.Printf("node:%d,left:%d,right:%d\n",root.Val,sum_left,sum_right)
-	sum_total := root.Val
-	if sum_left >0{
-		sum_total += sum_left
-	}
-	if sum_right >0 {
-		sum_total += sum_right
-	}
-	if sum_total >= sum_left && sum_total >= sum_right{
-		return sum_total
-	} else if sum_left > sum_right{
-		return sum_left
-	} else{
-		return sum_right
-	}
+	left := helper(root.Left, res)
+	right := helper(root.Right, res)
+	// fmt.Printf("node:%d,left:%d,right:%d\n",root.Val,left,right)
+	sumNotRoot := max(max(left, right)+root.Val, root.Val)
+	sumRoot := max(sumNotRoot, left+right+root.Val)
+	*res = max(*res, sumRoot)
+	return sumNotRoot
+}
+func maxPathSum(root *TreeNode) int {
+	res := -3000
+    helper(root, &res)
+    return res
 }
