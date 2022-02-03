@@ -1,10 +1,9 @@
 package algo
-import "fmt"
-type TreeNode struct {
-	Val int
-	Left *TreeNode
-	Right *TreeNode
-}
+import (
+	"fmt"
+	. "../Tree"
+)
+
 func max(a int, b int)int{
 	if a>=b{
 		return a
