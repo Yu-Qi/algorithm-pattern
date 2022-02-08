@@ -7,7 +7,7 @@ import (
 	. "../ListNode"
 )
 
-func reverseList(head *ListNode) *ListNode {
+func reverseListv0(head *ListNode) *ListNode {
 	if head == nil {
 		return nil
 	}
@@ -27,6 +27,15 @@ func reverseList(head *ListNode) *ListNode {
 	for ; idx >= 0; idx-- {
 		cur.Next = &ListNode{hashmap[idx].Val, nil}
 		cur = cur.Next
+	}
+	return res
+}
+
+func reverseList(head *ListNode) *ListNode {
+	var res *ListNode
+	for head != nil {
+		res = &ListNode{head.Val, res}
+		head = head.Next
 	}
 	return res
 }
