@@ -10,13 +10,7 @@ func reverse(nodes *[]*ListNode, left int, right int) {
 	if left == -1 && right == -1 {
 		return
 	}
-	size := -1
-	if right-left == 1 {
-		size = 1
-	} else {
-		size = (right - left) / 2
-	}
-	for i := 0; i < size; i++ {
+	for i := 0; i < (right - left+1) / 2; i++ {
 		tmp := (*nodes)[i+left-1]
 		(*nodes)[i+left-1] = (*nodes)[right-i-1]
 		(*nodes)[right-i-1] = tmp
