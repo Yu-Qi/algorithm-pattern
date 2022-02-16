@@ -79,23 +79,17 @@ func decodeString(s string) string {
 		for idx >=0 && stack[idx]!='['{
 			idx --
 		}
-		token := append([]byte{}, stack[idx+1:]...)
+		token := append([]byte{}, stack[idx+1:]...) // deepcopy
 		stack = stack[:idx] // pop digit and [
-		
 		idx -- //remove [
 		for idx >=0 && stack[idx]>='0' && stack[idx]<='9'{
 			idx --
 		}
 		num, _ := strconv.Atoi(string(stack[idx+1:]))
 		stack = stack[:idx+1] //remove num
-
-		fmt.Printf("stack:%v, token:%v, num:%d\n",stack,token,num)
-
 		for j:=0;j<num;j++{
 			stack = append(stack, token...)
 		}
-		fmt.Printf("stack:%v, token:%v, num:%d\n",stack,token,num)
-
 	default:
 		stack = append(stack, s[i])
 		}
