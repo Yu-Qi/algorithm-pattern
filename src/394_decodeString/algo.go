@@ -34,7 +34,7 @@ func multiple(s string, num int) string{
 	return res
 }
 
-func decodeString(s string) string {
+func decodeString_v0(s string) string {
 	nums := make([]int,0)
 	digits := make([]string,0)
 	num_flag := false
@@ -69,3 +69,36 @@ func decodeString(s string) string {
 	return res
 }
 
+func decodeString(s string) string {
+	stack := make([]byte, 0)
+
+	for i:=0;i<len(s);i++{
+	switch s[i]{
+	case ']':
+		idx := len(stack)-1
+		for idx >=0 && stack[idx]!='['{
+			idx --
+		}
+		token := append([]byte{}, stack[idx+1:]...)
+		stack = stack[:idx] // pop digit and [
+		
+		idx -- //remove [
+		for idx >=0 && stack[idx]>='0' && stack[idx]<='9'{
+			idx --
+		}
+		num, _ := strconv.Atoi(string(stack[idx+1:]))
+		stack = stack[:idx+1] //remove num
+
+		fmt.Printf("stack:%v, token:%v, num:%d\n",stack,token,num)
+
+		for j:=0;j<num;j++{
+			stack = append(stack, token...)
+		}
+		fmt.Printf("stack:%v, token:%v, num:%d\n",stack,token,num)
+
+	default:
+		stack = append(stack, s[i])
+		}
+	}
+	return string(stack)
+}
