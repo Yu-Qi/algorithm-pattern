@@ -53,7 +53,7 @@ type Point struct{
 	X int
 	Y int
 }
-func updateMatrix(mat [][]int) [][]int {
+func updateMatrix_v1(mat [][]int) [][]int {
 	queue := []Point{}
 	// create
     dst_mat := make([][]int, len(mat))
@@ -94,4 +94,35 @@ func updateMatrix(mat [][]int) [][]int {
 		queue = queue[size:]
 	}
     return dst_mat
+}
+
+
+func updateMatrix_v2(mat [][]int) [][]int {
+	queue := []Point{}
+	// create
+	for i:=0;i<len(mat);i++{
+		for j:=0;j<len(mat[0]);j++{
+			if mat[i][j] == 0{
+				queue = append(queue, Point{i,j})
+			}else{
+				// 除了0以外的值都不重要
+				mat[i][j] = -1
+			}
+		}
+	}
+	direction := [][]int{{1,0},{-1,0},{0,1},{0,-1}}
+	for len(queue) >0{
+		point := queue[0]
+		queue = queue[1:]
+		for i:=0;i<len(direction);i++{
+			x := point.X + direction[i][0]
+			y := point.Y + direction[i][1]
+			if x>=0 && y>=0 && x<len(mat)&&y<len(mat[0])&&mat[x][y]==-1{
+				mat[x][y] = mat[point.X][point.Y]+1
+				queue = append(queue, Point{x,y})
+			}
+		}
+		
+    return mat
+	}
 }
